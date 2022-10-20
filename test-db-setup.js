@@ -4,14 +4,15 @@ import _ from 'lodash'
 import { Item } from './src/resources/item/item.model'
 import { List } from './src/resources/list/list.model'
 import { User } from './src/resources/user/user.model'
+import * as dotenv from 'dotenv'
 
 const models = { User, List, Item }
+dotenv.config();
 
 const url =
   process.env.MONGODB_URI ||
   process.env.DB_URL ||
-  'mongodb://mongo_db/tipe-devapi-testing'
-
+  'mongodb://mongo_db/tipe-devapi-testing';
 global.newId = () => {
   return mongoose.Types.ObjectId()
 }
@@ -19,7 +20,9 @@ global.newId = () => {
 const remove = collection =>
   new Promise((resolve, reject) => {
     collection.remove(err => {
-      if (err) return reject(err)
+      if (err) {
+        return reject(err)
+      }
       resolve()
     })
   })
@@ -29,14 +32,16 @@ beforeEach(async done => {
   function clearDB() {
     return Promise.all(_.map(mongoose.connection.collections, c => remove(c)))
   }
-
   if (mongoose.connection.readyState === 0) {
     try {
       await mongoose.connect(
-        url + db,
+        url + '/tipe-devapi-testing' + db,
         {
           useNewUrlParser: true,
-          autoIndex: true
+          autoIndex: true,
+          auth: {
+            authSource: "admin"
+          }
         }
       )
       await clearDB()
@@ -51,6 +56,7 @@ beforeEach(async done => {
   }
   done()
 })
+
 afterEach(async done => {
   await mongoose.connection.db.dropDatabase()
   await mongoose.disconnect()
