@@ -2,6 +2,7 @@ module.exports = {
   parserOptions: {
     sourceType: 'module'
   },
+  indent: ["error", 4],
   parser: 'babel-eslint',
   env: {
     node: true
@@ -22,5 +23,5 @@ module.exports = {
         'semi': false
       }
     ]
-  }
+  },
 }
