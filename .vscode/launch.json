@@ -4,6 +4,7 @@
   // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+    
     {
       "type": "node",
       "request": "launch",
@@ -21,6 +22,15 @@
       "runtimeExecutable": "node",
       "skipFiles": ["<node_internals>/**"],
       "runtimeArgs": ["dist/resources/item/item.controllers.js"]
-    }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "name": "Launch Program via me la pelan en revesa",
+      "runtimeExecutable": "yarn",
+      "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": ["test-auth"]
+    },
   ]
 }
